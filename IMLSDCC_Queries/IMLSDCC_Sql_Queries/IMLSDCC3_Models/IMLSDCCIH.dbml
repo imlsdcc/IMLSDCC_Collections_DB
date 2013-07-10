@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="IH_IMLS" Class="IMLSDCCIHDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=imlsdccsql;Initial Catalog=IH_IMLS;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="IH_IMLSConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.ShortDisplay" Member="ShortDisplays">
+    <Type Name="ShortDisplay">
+      <Column Name="collectionID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="title_collection" Type="System.String" DbType="NVarChar(3000) NOT NULL" CanBeNull="false" />
+      <Column Name="description" Type="System.String" DbType="NVarChar(3000)" CanBeNull="true" />
+      <Column Name="isAvailableAt_URL" Type="System.String" DbType="NVarChar(3000)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CollectionProperties" Member="CollectionProperties">
+    <Type Name="CollectionProperty">
+      <Column Name="collectionPropertyID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="collectionID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="property" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="propertyType" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="text" Type="System.String" DbType="NVarChar(3000) NOT NULL" CanBeNull="false" />
+      <Association Name="Collection_CollectionProperty" Member="Collection" ThisKey="collectionID" OtherKey="collectionID" Type="Collection" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LongDisplay" Member="LongDisplays">
+    <Type Name="LongDisplay">
+      <Column Name="collectionID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="type_collection" Type="System.String" DbType="NVarChar(3000)" CanBeNull="true" />
+      <Column Name="format" Type="System.String" DbType="NVarChar(3000)" CanBeNull="true" />
+      <Column Name="size" Type="System.String" DbType="NVarChar(3000)" CanBeNull="true" />
+      <Column Name="relation_supplement" Type="System.String" DbType="NVarChar(3000)" CanBeNull="true" />
+      <Column Name="publisher" Type="System.String" DbType="NVarChar(3000)" CanBeNull="true" />
+      <Column Name="audience" Type="System.String" DbType="NVarChar(3000)" CanBeNull="true" />
+      <Column Name="interactivity" Type="System.String" DbType="NVarChar(3000)" CanBeNull="true" />
+      <Column Name="accessrights" Type="System.String" DbType="NVarChar(3000)" CanBeNull="true" />
+      <Column Name="rights" Type="System.String" DbType="NVarChar(3000)" CanBeNull="true" />
+      <Column Name="accrualPeriodicity" Type="System.String" DbType="NVarChar(3000)" CanBeNull="true" />
+      <Column Name="contributor" Type="System.String" DbType="NVarChar(3000)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.InstitutionProperties" Member="InstitutionProperties">
+    <Type Name="InstitutionProperty">
+      <Column Name="institutionPropertyID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="institutionID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="property" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="propertyType" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="text" Type="System.String" DbType="NVarChar(3000) NOT NULL" CanBeNull="false" />
+      <Association Name="Institution_InstitutionProperty" Member="Institution" ThisKey="institutionID" OtherKey="institutionID" Type="Institution" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Collections" Member="Collections">
+    <Type Name="Collection">
+      <Column Name="collectionID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="collectionNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ready" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="imls" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ih" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="dlf" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="hist" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="dpla" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="physical" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="portalCode" Type="System.Byte" DbType="TinyInt" IsDbGenerated="true" CanBeNull="true" UpdateCheck="Never" />
+      <Association Name="Collection_CollectionProperty" Member="CollectionProperties" ThisKey="collectionID" OtherKey="collectionID" Type="CollectionProperty" />
+      <Association Name="Collection_CollectionInstitution" Member="CollectionInstitutions" ThisKey="collectionID" OtherKey="collectionID" Type="CollectionInstitution" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CollectionInstitutions" Member="CollectionInstitutions">
+    <Type Name="CollectionInstitution">
+      <Column Name="collectionInstitutionID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="collectionID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="institutionID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="relationship" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Association Name="Collection_CollectionInstitution" Member="Collection" ThisKey="collectionID" OtherKey="collectionID" Type="Collection" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Institution_CollectionInstitution" Member="Institution" ThisKey="institutionID" OtherKey="institutionID" Type="Institution" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Institutions" Member="Institutions">
+    <Type Name="Institution">
+      <Column Name="institutionID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="institutionName" Type="System.String" DbType="NVarChar(1000) NOT NULL" CanBeNull="false" />
+      <Association Name="Institution_InstitutionProperty" Member="InstitutionProperties" ThisKey="institutionID" OtherKey="institutionID" Type="InstitutionProperty" />
+      <Association Name="Institution_CollectionInstitution" Member="CollectionInstitutions" ThisKey="institutionID" OtherKey="institutionID" Type="CollectionInstitution" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ControlledVocabulary" Member="ControlledVocabularies">
+    <Type Name="ControlledVocabulary">
+      <Column Name="controlledVocabID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="vocabularyName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="word" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="displayOrder" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Function Name="dbo.collCTQ" Method="collCTQ" IsComposable="true">
+    <Parameter Name="phrase" Type="System.String" DbType="NVarChar(255)" />
+    <Parameter Name="queryType" Type="System.String" DbType="NVarChar(255)" />
+    <Parameter Name="top_n" Type="System.Int32" DbType="Int" />
+    <ElementType Name="collCTQResult">
+      <Column Name="collID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="hitsInColl" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ctRank" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+</Database>

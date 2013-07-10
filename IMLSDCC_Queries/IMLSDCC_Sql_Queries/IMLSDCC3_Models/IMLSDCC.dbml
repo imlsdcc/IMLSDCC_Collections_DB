@@ -1,0 +1,251 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="test_IMLS_Items2" Class="IMLSDCCDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=imlsdccsql.ad.uiuc.edu;Initial Catalog=test_IMLS_Items2;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="test_IMLS_Items2ConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.RecordsToTypes" Member="RecordsToTypes">
+    <Type Name="RecordsToType">
+      <Column Name="recordID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="typeID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Type_RecordsToType" Member="Type" ThisKey="typeID" OtherKey="typeID" Type="Type" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Record_RecordsToType" Member="Record" ThisKey="recordID" OtherKey="recordID" Type="Record" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Types" Member="Types">
+    <Type Name="Type">
+      <Column Name="typeID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="typeText" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="typeNoPunct" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="Type_RecordsToType" Member="RecordsToTypes" ThisKey="typeID" OtherKey="typeID" Type="RecordsToType" />
+    </Type>
+  </Table>
+  <Table Name="dbo.RecordsToSubjects" Member="RecordsToSubjects">
+    <Type Name="RecordsToSubject">
+      <Column Name="recordID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="subjectID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Subject_RecordsToSubject" Member="Subject" ThisKey="subjectID" OtherKey="subjectID" Type="Subject" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Record_RecordsToSubject" Member="Record" ThisKey="recordID" OtherKey="recordID" Type="Record" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Subjects" Member="Subjects">
+    <Type Name="Subject">
+      <Column Name="subjectID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="subjectText" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="subjectNoPunct" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="Subject_RecordsToSubject" Member="RecordsToSubjects" ThisKey="subjectID" OtherKey="subjectID" Type="RecordsToSubject" />
+    </Type>
+  </Table>
+  <Table Name="dbo.RecordsToDateBrowse" Member="RecordsToDateBrowses">
+    <Type Name="RecordsToDateBrowse">
+      <Column Name="datePivotRow" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="dateID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="recordID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Record_RecordsToDateBrowse" Member="Record" ThisKey="recordID" OtherKey="recordID" Type="Record" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.RecordsToTitleBrowse" Member="RecordsToTitleBrowses">
+    <Type Name="RecordsToTitleBrowse">
+      <Column Name="titlePivotRow" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="titleID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="recordID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Record_RecordsToTitleBrowse" Member="Record" ThisKey="recordID" OtherKey="recordID" Type="Record" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.RecordsToFacets" Member="RecordsToFacets">
+    <Type Name="RecordsToFacet">
+      <Column Name="facetID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="recordID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Facet_RecordsToFacet" Member="Facet" ThisKey="facetID" OtherKey="facetID" Type="Facet" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Record_RecordsToFacet" Member="Record" ThisKey="recordID" OtherKey="recordID" Type="Record" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.RecordsToCollections" Member="RecordsToCollections">
+    <Type Name="RecordsToCollection">
+      <Column Name="RecToCollID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="collID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="recordID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="oaiIdentifier" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="code" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Association Name="Record_RecordsToCollection" Member="Record" ThisKey="recordID" OtherKey="recordID" Type="Record" IsForeignKey="true" DeleteRule="CASCADE" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Facets" Member="Facets">
+    <Type Name="Facet">
+      <Column Name="facetID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="facetValue" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="parentFacet" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="facetType" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Facet_RecordsToFacet" Member="RecordsToFacets" ThisKey="facetID" OtherKey="facetID" Type="RecordsToFacet" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Records" Member="Records">
+    <Type Name="Record">
+      <Column Name="recordID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="repoID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="cid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="identifier" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="datestamp" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="status" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="filePath" Type="System.String" DbType="NVarChar(400)" CanBeNull="true" />
+      <Column Name="minYear" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="maxYear" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="harvestDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="firstCreator" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="prov_repositoryID" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="prov_datestamp" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="prov_baseURL" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="searchXML" Type="System.Xml.Linq.XElement" DbType="Xml" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="shortXML" Type="System.Xml.Linq.XElement" DbType="Xml" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="longXML" Type="System.Xml.Linq.XElement" DbType="Xml" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="facetXML" Type="System.Xml.Linq.XElement" DbType="Xml" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="AquiferOAIIdentifier" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="title" Type="System.Xml.Linq.XElement" DbType="Xml" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="creator" Type="System.Xml.Linq.XElement" DbType="Xml" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="subject" Type="System.Xml.Linq.XElement" DbType="Xml" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="titleText" Type="System.String" DbType="NVarChar(3000)" CanBeNull="true" />
+      <Column Name="titleNoPunct" Type="System.String" DbType="NVarChar(3000)" CanBeNull="true" />
+      <Column Name="parent_description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="parent_XMLBlob" Type="System.Xml.Linq.XElement" DbType="Xml" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="grandp_description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="grandp_XMLBlob" Type="System.Xml.Linq.XElement" DbType="Xml" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="portalCode" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="titleShort" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="datefromXML" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Association Name="Record_RecordsToType" Member="RecordsToTypes" ThisKey="recordID" OtherKey="recordID" Type="RecordsToType" />
+      <Association Name="Record_RecordsToSubject" Member="RecordsToSubjects" ThisKey="recordID" OtherKey="recordID" Type="RecordsToSubject" />
+      <Association Name="Record_RecordsToDateBrowse" Member="RecordsToDateBrowses" ThisKey="recordID" OtherKey="recordID" Type="RecordsToDateBrowse" />
+      <Association Name="Record_RecordsToTitleBrowse" Member="RecordsToTitleBrowses" ThisKey="recordID" OtherKey="recordID" Type="RecordsToTitleBrowse" />
+      <Association Name="Record_RecordsToFacet" Member="RecordsToFacets" ThisKey="recordID" OtherKey="recordID" Type="RecordsToFacet" />
+      <Association Name="Record_RecordsToCollection" Member="RecordsToCollections" ThisKey="recordID" OtherKey="recordID" Type="RecordsToCollection" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CollectionsToThumbnails" Member="CollectionsToThumbnails">
+    <Type Name="CollectionsToThumbnail">
+      <Column Name="collID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="oaiidentifier1" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="oaiidentifier2" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="oaiidentifier3" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="oaiidentifier4" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Function Name="dbo.ItemCount" Method="ItemCount" IsComposable="true">
+    <Parameter Name="phrase" Type="System.String" DbType="NVarChar(256)" />
+    <Parameter Name="queryType" Type="System.String" DbType="NVarChar(256)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.containsTableQuery" Method="containsTableQuery" IsComposable="true">
+    <Parameter Name="phrase" Type="System.String" DbType="NVarChar(255)" />
+    <Parameter Name="queryType" Type="System.String" DbType="NVarChar(255)" />
+    <Parameter Name="top_n" Type="System.Int32" DbType="Int" />
+    <ElementType Name="containsTableQueryResult">
+      <Column Name="RecordID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ctRank" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.cTQWithPCOnly" Method="cTQWithPCOnly" IsComposable="true">
+    <Parameter Name="phrase" Type="System.String" DbType="NVarChar(255)" />
+    <Parameter Name="queryType" Type="System.String" DbType="NVarChar(255)" />
+    <Parameter Name="top_n" Type="System.Int32" DbType="Int" />
+    <Parameter Name="collectionID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="portalCode" Type="System.Int32" DbType="Int" />
+    <ElementType Name="cTQWithPCOnlyResult">
+      <Column Name="RecordID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ctRank" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.cTQWith1Facet" Method="cTQWith1Facet" IsComposable="true">
+    <Parameter Name="phrase" Type="System.String" DbType="NVarChar(255)" />
+    <Parameter Name="queryType" Type="System.String" DbType="NVarChar(255)" />
+    <Parameter Name="top_n" Type="System.Int32" DbType="Int" />
+    <Parameter Name="collectionID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="portalCode" Type="System.Int32" DbType="Int" />
+    <Parameter Name="facetIn" Type="System.String" DbType="NVarChar(255)" />
+    <ElementType Name="cTQWith1FacetResult">
+      <Column Name="RecordID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ctRank" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.cTQWith2Facet" Method="cTQWith2Facet" IsComposable="true">
+    <Parameter Name="phrase" Type="System.String" DbType="NVarChar(255)" />
+    <Parameter Name="queryType" Type="System.String" DbType="NVarChar(255)" />
+    <Parameter Name="top_n" Type="System.Int32" DbType="Int" />
+    <Parameter Name="collectionID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="portalCode" Type="System.Int32" DbType="Int" />
+    <Parameter Name="facetIn" Type="System.String" DbType="NVarChar(255)" />
+    <Parameter Name="facetIn2" Type="System.String" DbType="NVarChar(255)" />
+    <ElementType Name="cTQWith2FacetResult">
+      <Column Name="RecordID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ctRank" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.cTQWith3Facet" Method="cTQWith3Facet" IsComposable="true">
+    <Parameter Name="phrase" Type="System.String" DbType="NVarChar(255)" />
+    <Parameter Name="queryType" Type="System.String" DbType="NVarChar(255)" />
+    <Parameter Name="top_n" Type="System.Int32" DbType="Int" />
+    <Parameter Name="collectionID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="portalCode" Type="System.Int32" DbType="Int" />
+    <Parameter Name="facetIn" Type="System.String" DbType="NVarChar(255)" />
+    <Parameter Name="facetIn2" Type="System.String" DbType="NVarChar(255)" />
+    <Parameter Name="facetIn3" Type="System.String" DbType="NVarChar(255)" />
+    <ElementType Name="cTQWith3FacetResult">
+      <Column Name="RecordID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ctRank" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.CollectionDetails" Method="CollectionDetails" IsComposable="true">
+    <Parameter Name="identifier" Type="System.Int32" DbType="Int" />
+    <Return Type="object" />
+  </Function>
+  <Function Name="dbo.GetFacetsCTQ" Method="GetFacetsCTQ" IsComposable="true">
+    <Parameter Name="phrase" Type="System.String" DbType="NVarChar(255)" />
+    <Parameter Name="queryType" Type="System.String" DbType="NVarChar(255)" />
+    <Parameter Name="top_n" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetFacetsCTQResult">
+      <Column Name="facetID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="itemCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="collCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetFacetsCTQ2" Method="GetFacetsCTQ2" IsComposable="true">
+    <Parameter Name="phrase" Type="System.String" DbType="NVarChar(255)" />
+    <Parameter Name="queryType" Type="System.String" DbType="NVarChar(255)" />
+    <Parameter Name="top_n" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetFacetsCTQ2Result">
+      <Column Name="facetID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="itemCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="collCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetStateCount" Method="GetStateCount">
+    <ElementType Name="GetStateCountResult">
+      <Column Name="institCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="stateName" Type="System.String" DbType="NVarChar(3000) NOT NULL" CanBeNull="false" />
+      <Column Name="stateCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="stateID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetStats" Method="GetStats">
+    <Parameter Name="portalCode" Type="System.String" DbType="NVarChar(5)" />
+    <ElementType Name="GetStatsResult">
+      <Column Name="ItemCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CollectionCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="InstitutionCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetItemsWithFacets" Method="GetItemsWithFacets">
+    <Parameter Name="phrase" Type="System.String" DbType="NVarChar(255)" />
+    <Parameter Name="queryType" Type="System.String" DbType="NVarChar(255)" />
+    <Parameter Name="top_n" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetItemsWithFacetsResult">
+      <Column Name="RecordID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ctRank" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetCollectionsWithFacets" Method="GetCollectionsWithFacets">
+    <Parameter Name="phrase" Type="System.String" DbType="NVarChar(255)" />
+    <Parameter Name="queryType" Type="System.String" DbType="NVarChar(255)" />
+    <Parameter Name="top_n" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetCollectionsWithFacetsResult">
+      <Column Name="collID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="hitsInColl" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ctRank" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+</Database>
